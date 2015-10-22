@@ -10,14 +10,33 @@
 angular.module('ticTacToeApp')
   .factory('rules', function () {
     var DEFAULT_RULES = {
-      field:{},
-      player:{},
-      turn_rules:{}
-    }
+      field:{
+        width: 15,
+        height: 15,
+        objectArr: ['circle','cross']
+      },
+      player:{
+        count: 2
+      },
+      turn:{
+      
+      }
+    },
+      current_rules = DEFAULT_RULES;
+      
+    
   
-    function getFieldRules(){}
-    function getPlayerRules(){}
-    function getTurnRules(){}
+    function getFieldRules(){
+      return current_rules.field;
+    }
+    
+    function getPlayerRules(){
+      return current_rules.player;
+    }
+    
+    function getTurnRules(){
+      return current_rules.turn;
+    }
   
     return{
       getFieldRules: getFieldRules,

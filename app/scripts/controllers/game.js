@@ -47,11 +47,11 @@ angular.module('ticTacToeApp')
             if(isVictory()){
                 //Завершение игры с победой одного из игроков
                 $location.url("end_of_game");
-            };
+            }
             // Передача хода
-        });     
-        
+        });    
 
-
-
+        function isVictory(){
+          return false;
+        }
     });

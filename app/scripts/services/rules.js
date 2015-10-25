@@ -42,5 +42,5 @@ angular.module('ticTacToeApp')
       getFieldRules: getFieldRules,
       getPlayerRules: getPlayerRules,
       getTurnRules: getTurnRules
-    }
+    };
   });

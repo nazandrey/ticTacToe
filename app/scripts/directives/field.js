@@ -12,9 +12,10 @@ angular.module('ticTacToeApp')
       templateUrl: 'views/directive_templates/field.html',
       restrict: 'E',
       scope: {
-        'rules':'='
+        'rules':'=',
+        'field_turn':'=turn'
       },
-      link: function postLink(scope, element, attrs) {
+      link: function (scope, element, attrs) {
         scope.field = initField();
         
         function initField(){
@@ -31,7 +32,7 @@ angular.module('ticTacToeApp')
         
         function initCellInfo(){
           return {
-            type: "empty"
+            type: 'empty'
           };
         }
       }

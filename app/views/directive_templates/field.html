@@ -1,7 +1,8 @@
 <table>
   <tr ng-repeat="cell_row in field">
     <td ng-repeat="cell in cell_row">
-      <span ng-bind="$parent.$index"></span>, <span ng-bind="$index"></span>
+      <cell object-arr="rules.objectArr" turn="field_turn" coord-x="$parent.$index" coord-y="$index">
+      </cell>      
     </td>
   </tr>
 </table>

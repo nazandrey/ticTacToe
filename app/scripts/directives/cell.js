@@ -9,10 +9,17 @@
 angular.module('ticTacToeApp')
   .directive('cell', function () {
     return {
-      template: '<div></div>',
+      templateUrl: 'views/directive_templates/cell.html',
       restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        element.text('this is the cell directive');
+      transclude: true,
+      scope: {
+        'objectArr':'=',
+        'turn':'=turn',
+        'coordX':'=',
+        'coordY':'='
+      },
+      link: function(scope, element, attrs) {
+        
       }
     };
   });

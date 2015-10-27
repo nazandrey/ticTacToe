@@ -36,7 +36,12 @@ angular.module('ticTacToeApp')
         
         // Убирание экрана загрузки
         loader.hide();
-
+        
+        $scope.ctrl_turn = function(x,y){
+          //console.log('turns: ', $event);
+          console.log('turns: ', x, y);
+        }
+        
         // 4) Управление ходом игры
         // Ожидание хода текущего игрока
         // Проверка правильности хода

@@ -13,7 +13,7 @@ angular.module('ticTacToeApp')
       restrict: 'E',
       scope: {
         'rules':'=',
-        'field_turn':'=turn'
+        'ctrlGetCurrPlayerShapeArr':'&getCurrPlayerShapeArr'
       },
       link: function (scope, element, attrs) {
         scope.field = initField();

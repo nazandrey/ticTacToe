@@ -12,11 +12,10 @@ angular.module('ticTacToeApp')
     var DEFAULT_RULES = {
       field:{
         width: 15,
-        height: 15,
-        objectArr: ['circle','cross']
+        height: 15        
       },
       player:{
-        count: 2
+        packageArr: [['circle'],['cross']]
       },
       turn:{
       

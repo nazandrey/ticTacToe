@@ -1,7 +1,7 @@
 <table>
   <tr ng-repeat="cell_row in field">
     <td ng-repeat="cell in cell_row">
-      <cell object-arr="rules.objectArr" turn="field_turn" coord-x="$parent.$index" coord-y="$index">
+      <cell object-arr="rules.objectArr" get-curr-player-shape-arr="ctrlGetCurrPlayerShapeArr()" row="$parent.$index" col="$index">
       </cell>      
     </td>
   </tr>

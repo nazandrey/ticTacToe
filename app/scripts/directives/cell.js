@@ -14,12 +14,23 @@ angular.module('ticTacToeApp')
       transclude: true,
       scope: {
         'objectArr':'=',
-        'turn':'=turn',
-        'coordX':'=',
-        'coordY':'='
+        'getCurrPlayerShapeArr':'&getCurrPlayerShapeArr',
+        'row':'=',
+        'col':'='
       },
       link: function(scope, element, attrs) {
+        scope.shape = ' ';
         
+        scope.turn = function(){
+          var shapeArr = scope.getCurrPlayerShapeArr();
+          if(shapeArr.length === 1){
+            if(shapeArr[0] === 'circle'){
+              scope.shape = 'o';
+            } else if (shapeArr[0] === 'cross'){
+              scope.shape = 'x';
+            }
+          }
+        };
       }
     };
   });

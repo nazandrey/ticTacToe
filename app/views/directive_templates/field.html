@@ -1,7 +1,8 @@
 <table>
   <tr ng-repeat="cell_row in field">
     <td ng-repeat="cell in cell_row">
-      <cell object-arr="rules.objectArr" get-curr-player-shape-arr="ctrlGetCurrPlayerShapeArr()" row="$parent.$index" col="$index">
+      <cell ng-transclude>
+        <p ng-init="init(cell.row,cell.col)" ng-click="turn(cell.row, cell.col);">(<span ng-bind="field[cell.row][cell.col].shape"></span>)</p>
       </cell>      
     </td>
   </tr>

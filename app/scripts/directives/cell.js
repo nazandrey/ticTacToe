@@ -9,18 +9,32 @@
 angular.module('ticTacToeApp')
   .directive('cell', function () {
     return {
-      templateUrl: 'views/directive_templates/cell.html',
       restrict: 'E',
       transclude: true,
-      scope: {
-        'objectArr':'=',
-        'getCurrPlayerShapeArr':'&getCurrPlayerShapeArr',
-        'row':'=',
-        'col':'='
-      },
-      link: function(scope, element, attrs) {
-        scope.shape = ' ';
-        
+      scope: true,
+      link: function(scope, element, attrs) {   
+        scope.init = function(row,col){
+          console.log("init?: ", row,col);
+        }
+      
+        scope.$watch("shape",function(newShape, oldShape){    
+          if(newShape !== oldShape){
+            scope.shapeInView = function(){          
+              switch(newShape){
+                case 'empty': 
+                  return ' ';
+                case 'circle': 
+                  return 'o';
+                case 'cross':
+                  return 'x';
+                default:
+                  console.warn('no shapeInView found');
+                  return '';              
+              }
+            }
+          }
+        })
+        /*
         scope.turn = function(){
           var shapeArr = scope.getCurrPlayerShapeArr();
           if(shapeArr.length === 1){
@@ -30,7 +44,7 @@ angular.module('ticTacToeApp')
               scope.shape = 'x';
             }
           }
-        };
+        };*/
       }
     };
   });

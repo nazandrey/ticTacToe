@@ -9,31 +9,35 @@
 angular.module('ticTacToeApp')
   .directive('cell', function () {
     return {
+      templateUrl: 'views/directive_templates/cell.html',
       restrict: 'E',
       transclude: true,
-      scope: true,
+      scope: {
+        cellData: '=data',
+        turn: '='
+      },
       link: function(scope, element, attrs) {   
-        scope.init = function(row,col){
-          console.log("init?: ", row,col);
-        }
-      
-        scope.$watch("shape",function(newShape, oldShape){    
-          if(newShape !== oldShape){
-            scope.shapeInView = function(){          
-              switch(newShape){
-                case 'empty': 
-                  return ' ';
-                case 'circle': 
-                  return 'o';
-                case 'cross':
-                  return 'x';
-                default:
-                  console.warn('no shapeInView found');
-                  return '';              
-              }
-            }
+        scope.$watch("cellData.shape",function(newShape, oldShape){    
+          if(newShape !== oldShape || !scope.shapeView){
+            scope.shapeView = _getShapeView(newShape);
           }
         })
+        
+        function _getShapeView(shape){          
+          switch(shape){
+            case 'empty': 
+              return ' ';
+            case 'circle': 
+              return 'o';
+            case 'cross':
+              return 'x';
+            default:
+              console.warn('no shapeView found for: ', shape);
+              return '';              
+          }
+        }
+        
+        
         /*
         scope.turn = function(){
           var shapeArr = scope.getCurrPlayerShapeArr();

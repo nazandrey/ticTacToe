@@ -52,6 +52,16 @@ angular.module('ticTacToeApp')
           return $scope.playerArr[$scope.activePlayerIdx].shapeArr;
         }
         
+        $scope.changeActivePlayer = function(){          
+          if($scope.playerArr[$scope.activePlayerIdx + 1]){
+            $scope.activePlayerIdx += 1;
+          } else {
+            $scope.activePlayerIdx = 0;
+          }
+        }
+        
+        $scope.isVictory = isVictory;
+        
         // 4) Управление ходом игры
         // Ожидание хода текущего игрока
         // Проверка правильности хода

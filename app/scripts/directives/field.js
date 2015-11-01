@@ -25,7 +25,7 @@ angular.module('ticTacToeApp')
           }
           scope.field[row][col].shape = newShape;
           //Смена игрока
-          if(!isVictory(row, col, scope.field[row][col].shape, currPlayerShapeArr.length)){
+          if(!scope.$parent.isVictory(row, col, scope.field[row][col].shape, currPlayerShapeArr.length, scope.field)){
             scope.$parent.changeActivePlayer();
           } else {
             console.log('victory!');
@@ -52,123 +52,7 @@ angular.module('ticTacToeApp')
           };
         }
         
-        var SHAPE_WIN_COUNT = 5;
-        function isVictory(lastRow, lastCol, lastUsedShape, shapeArrLength){
-          if(shapeArrLength === 1){
-            //Самый простой случай, когда вариантов того, что поставить, только 1
-            return checkHorizontal(lastRow, lastUsedShape) || 
-              checkVertical(lastCol, lastUsedShape) || 
-              checkMainDiagonal(lastRow, lastCol, lastUsedShape) || 
-              checkIncidentalDiagonal(lastRow, lastCol, lastUsedShape);
-          }
-        }
-        
-        function checkHorizontal(lastRow, lastUsedShape){
-          var isVictory = false, 
-            shapeCount = 0;
-          scope.field[lastRow].some(function(cell){
-            if(cell.shape === lastUsedShape){
-              shapeCount++;
-              if(shapeCount === SHAPE_WIN_COUNT){
-                isVictory = true;
-                return true;
-              } else {
-                return false;
-              }              
-            } else {
-              shapeCount = 0;
-              return false;
-            }
-          });
-          return isVictory;
-        };
-        
-        function checkVertical(lastCol, lastUsedShape){
-          var isVictory = false, 
-            shapeCount = 0;
-          scope.field.some(function(row){
-            if(row[lastCol].shape === lastUsedShape){
-              shapeCount++;
-              if(shapeCount === SHAPE_WIN_COUNT){
-                isVictory = true;
-                return true;
-              } else {
-                return false;
-              }              
-            } else {
-              shapeCount = 0;
-              return false;
-            }
-          });   
-          return isVictory;
-        };
-        
-        function checkMainDiagonal(lastRow, lastCol, lastUsedShape){
-          var startCol = lastCol,
-            startRow = lastRow;
-          while(startRow !== 0 && startCol !== 0){
-            startCol--;
-            startRow--;
-          }  
-           
-          /*
-          //Попытка оптимизации, с ней становится непонятней
-          if(lastRow > lastCol){
-            startRow = lastRow-lastCol;
-            startCol = 0;
-          } else {
-            startRow = 0;
-            startCol = lastCol-lastRow;
-          }
-          */
-          var row = startRow,
-            col = startCol,
-            shapeCount = 0,
-            isVictory = false;
-          while(row < (scope.field.length - 1) && col < scope.field[0].length){
-            if(scope.field[row][col].shape === lastUsedShape){
-              shapeCount++;
-              if(shapeCount === SHAPE_WIN_COUNT){
-                isVictory = true;
-                break;
-              };
-            } else {
-              shapeCount = 0;
-            }
-            row++;
-            col++;
-          };
-          
-          return isVictory;
-        }; 
-
-        function checkIncidentalDiagonal(lastRow, lastCol, lastUsedShape){
-          var startCol = lastCol,
-            startRow = lastRow;
-          while(startRow < (scope.field.length - 1) && startCol !== 0){
-            startCol--;
-            startRow++;
-          }          
-          var row = startRow,
-            col = startCol,
-            shapeCount = 0,
-            isVictory = false;
-          while(row !== 0 && col < (scope.field[0].length - 1)){
-            if(scope.field[row][col].shape === lastUsedShape){
-              shapeCount++;
-              if(shapeCount === SHAPE_WIN_COUNT){
-                isVictory = true;
-                break;
-              };
-            } else {
-              shapeCount = 0;
-            }
-            col++;
-            row--;
-          };
-          
-          return isVictory;
-        };   
+         
       }
     };
   });

@@ -8,7 +8,7 @@
  * Controller of the ticTacToeApp
  */
 angular.module('ticTacToeApp')
-    .controller('GameCtrl', function ($scope, $location, rules, loader, playerGenerator) {
+    .controller('GameCtrl', function ($scope, $location, rules, loader, playerGenerator, checkVictoryFnStorage) {
         //Задачи контроллера:
         // 1) Инициализация поля; 
         // 2) Создание игроков; 
@@ -60,7 +60,7 @@ angular.module('ticTacToeApp')
           }
         }
         
-        $scope.isVictory = isVictory;
+        $scope.isVictory = checkVictoryFnStorage.getDefaultFn;
         
         // 4) Управление ходом игры
         // Ожидание хода текущего игрока

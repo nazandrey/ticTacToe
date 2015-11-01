@@ -17,8 +17,7 @@ angular.module('ticTacToeApp')
       player:{
         packageArr: [['circle'],['cross']]
       },
-      turn:{
-      
+      turn:{        
       }
     },
       current_rules = DEFAULT_RULES;

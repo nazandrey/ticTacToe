@@ -1,2 +1,16 @@
 <p>This is the game view.</p>
-<field></field>
+<div>
+  <span>
+    player № <span ng-bind="activePlayerIdx + 1"></span>
+  </span> 
+  <span>
+    ( <span ng-bind="currPlayerMainShape"></span> )
+  </span>
+  <span>
+    <span ng-if="showVictoryView"> has won!</span>
+  </span> 
+</div>
+<div ng-if="showVictoryView" ng-click="startNewGame();">
+  Another game?
+</div>
+<field id="field"></field>

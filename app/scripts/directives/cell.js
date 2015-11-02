@@ -7,7 +7,7 @@
  * # cell
  */
 angular.module('ticTacToeApp')
-  .directive('cell', function () {
+  .directive('cell', function (shape) {
     return {
       templateUrl: 'views/directive_templates/cell.html',
       restrict: 'E',
@@ -19,23 +19,11 @@ angular.module('ticTacToeApp')
       link: function(scope, element, attrs) {   
         scope.$watch("cellData.shape",function(newShape, oldShape){    
           if(newShape !== oldShape || !scope.shapeView){
-            scope.shapeView = _getShapeView(newShape);
+            scope.shapeView = shape.getView(newShape);
           }
         })
         
-        function _getShapeView(shape){          
-          switch(shape){
-            case 'empty': 
-              return ' ';
-            case 'circle': 
-              return 'o';
-            case 'cross':
-              return 'x';
-            default:
-              console.warn('no shapeView found for: ', shape);
-              return '';              
-          }
-        }
+        
         
         
         /*

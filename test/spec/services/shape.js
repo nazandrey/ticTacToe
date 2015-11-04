@@ -11,8 +11,8 @@ describe('Service: shape', function () {
     shape = _shape_;
   }));
 
-  it('should do something', function () {
-    expect(!!shape).toBe(true);
+  it('should get circle', function () {
+    expect(shape.getView('circle')).toBe('o');
   });
 
 });

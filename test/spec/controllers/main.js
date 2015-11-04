@@ -16,7 +16,9 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(scope.awesomeThings.length).toBe(3);
-  });
+  it('should be transition to game', inject(function ($location) {
+    expect(scope.toGame).toBeDefined();
+    scope.toGame();
+    expect($location.url()).toBe('/game');
+  }));
 });

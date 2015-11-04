@@ -22,21 +22,6 @@ angular.module('ticTacToeApp')
             scope.shapeView = shape.getView(newShape);
           }
         })
-        
-        
-        
-        
-        /*
-        scope.turn = function(){
-          var shapeArr = scope.getCurrPlayerShapeArr();
-          if(shapeArr.length === 1){
-            if(shapeArr[0] === 'circle'){
-              scope.shape = 'o';
-            } else if (shapeArr[0] === 'cross'){
-              scope.shape = 'x';
-            }
-          }
-        };*/
       }
     };
   });

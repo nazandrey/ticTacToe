@@ -40,17 +40,17 @@ module.exports = function (grunt) {
         files: ['bower.json'],
         tasks: ['wiredep']
       },
-      js: {
-        files: ['<%= yeoman.app %>/scripts/{,**/}*.js'],
-        tasks: ['newer:jshint:all'],
-        options: {
-          livereload: '<%= connect.options.livereload %>'
-        }
-      },
-      jsTest: {
-        files: ['test/spec/{,*/}*.js'],
-        tasks: ['newer:jshint:test', 'karma']
-      },
+      //js: {
+      //  files: ['<%= yeoman.app %>/scripts/{,**/}*.js'],
+      //  tasks: ['newer:jshint:all'],
+      //  options: {
+      //    livereload: '<%= connect.options.livereload %>'
+      //  }
+      //},
+      //jsTest: {
+      //  files: ['test/spec/{,*/}*.js'],
+      //  tasks: ['newer:jshint:test', 'karma']
+      //},
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
@@ -424,7 +424,17 @@ module.exports = function (grunt) {
     karma: {
       unit: {
         configFile: 'test/karma.conf.js',
+        browsers: [
+          "PhantomJS"
+        ],
         singleRun: true
+      },
+      debugUnit: {
+        configFile: 'test/karma.conf.js',
+        browsers: [
+          "Chrome"
+        ],
+        singleRun: false
       }
     }
   });
@@ -441,7 +451,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'autoprefixer:server',
       'connect:livereload',
-      'open:chrome',
+      'open',
       'watch'
     ]);
   });
@@ -457,7 +467,16 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma'
+    'karma:unit'
+  ]);
+  
+  grunt.registerTask('debugTest', [
+    'clean:server',
+    'wiredep',
+    'concurrent:test',
+    'autoprefixer',
+    'connect:test',
+    'karma:debugUnit'
   ]);
 
   grunt.registerTask('build', [

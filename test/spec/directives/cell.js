@@ -7,11 +7,15 @@ describe('Directive: cell', function () {
 
   var element,
     scope,
-    cellScope;
+    cellScope,
+    template;
+
+  beforeEach(module('app/views/directive_templates/cell.html'));
   
-  //https://github.com/karma-runner/karma-ng-html2js-preprocessor
-  
-  beforeEach(inject(function ($rootScope, $compile) {
+  beforeEach(inject(function ($templateCache, $rootScope, $compile) {
+    template = $templateCache.get('app/views/directive_templates/cell.html');
+		$templateCache.put('views/directive_templates/cell.html',template);
+    
     scope = $rootScope.$new();
     scope.s_data = {shape:'circle'};
     scope.s_turn = function(){};
@@ -31,12 +35,9 @@ describe('Directive: cell', function () {
     $timeout.flush();
   }));
   
-  it('should shape watcher work', inject(function ($timeout, $compile) {    
-    $timeout(function() { 
-      scope.rData.shape = 'cross';
-      expect(cellScope.shapeView).toBeDefined();
-    }, 0 , false);
-    
-    $timeout.flush();
+  it('should shape watcher work', inject(function ($timeout, $compile) {  
+    scope.s_data.shape = 'cross';
+    scope.$digest();
+    expect(cellScope.shapeView).toBeDefined();
   }));
 });

@@ -473,7 +473,7 @@ module.exports = function (grunt) {
   grunt.registerTask('debugTest', [
     'clean:server',
     'wiredep',
-    'concurrent:test',
+    //'concurrent:test',
     'autoprefixer',
     'connect:test',
     'karma:debugUnit'

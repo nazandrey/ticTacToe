@@ -25,19 +25,15 @@ describe('Directive: cell', function () {
     cellScope = element.isolateScope();
   }));
 
-  it('should data be defined', inject(function ($compile, $timeout) {  
-    $timeout(function() {  
-      expect(cellScope.cellData).toBeObject();
-      expect(cellScope.shapeView).toBeDefined();
-      expect(cellScope.turn).toBeFunction();
-    }, 0 , false);
-    
-    $timeout.flush();
-  }));
+  it('should data be defined', function () {  
+    expect(cellScope.cellData).toBeObject();
+    expect(cellScope.shapeView).toBeDefined();
+    expect(cellScope.turn).toBeFunction();
+  });
   
-  it('should shape watcher work', inject(function ($timeout, $compile) {  
+  it('should shape watcher work', function () {  
     scope.s_data.shape = 'cross';
     scope.$digest();
     expect(cellScope.shapeView).toBeDefined();
-  }));
+  });
 });

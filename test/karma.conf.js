@@ -89,10 +89,11 @@ module.exports = function(config) {
     /*
     ngHtml2JsPreprocessor: {
       // strip this from the file path
-      //stripPrefix: 'public/',
-      stripSuffix: '.html',
+      stripPrefix: 'app/'//,
+      //stripSuffix: '.html',
       // prepend this to the
-      prependPrefix: 'views/',
+      //prependPrefix: 'app/'//,
+      /*
 
       // or define a custom transform function
       // - cacheId returned is used to load template
@@ -111,7 +112,8 @@ module.exports = function(config) {
       //   htmlPath is a originalPath stripped and/or prepended
       //   with all provided suffixes and prefixes
       moduleName: 'foo'
-    }
-    */
+      *//*
+    }  
+  */    
   });
 };

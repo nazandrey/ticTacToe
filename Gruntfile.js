@@ -48,7 +48,7 @@ module.exports = function (grunt) {
       //  }
       //},
       //jsTest: {
-      //  files: ['test/spec/{,*/}*.js'],
+      //  files: ['test/unit/{,*/}*.js'],
       //  tasks: ['newer:jshint:test', 'karma']
       //},
       compass: {
@@ -100,6 +100,23 @@ module.exports = function (grunt) {
       test: {
         options: {
           port: 9001,
+          hostname: 'localhost',
+          middleware: function (connect) {
+            return [
+              connect.static('.tmp'),
+              connect.static('test'),
+              connect().use(
+                '/bower_components',
+                connect.static('./bower_components')
+              ),
+              connect.static(appConfig.app)
+            ];
+          }
+        }
+      },
+      e2eTest: {
+        options: {
+          port: 4444,
           middleware: function (connect) {
             return [
               connect.static('.tmp'),
@@ -137,7 +154,7 @@ module.exports = function (grunt) {
         options: {
           jshintrc: 'test/.jshintrc'
         },
-        src: ['test/spec/{,*/}*.js']
+        src: ['test/unit/{,*/}*.js']
       }
     },
 
@@ -421,6 +438,7 @@ module.exports = function (grunt) {
     },
 
     // Test settings
+    //unit
     karma: {
       unit: {
         configFile: 'test/karma.conf.js',
@@ -436,6 +454,15 @@ module.exports = function (grunt) {
         ],
         singleRun: false
       }
+    },
+    
+    //e2e
+    protractor: {
+      options: {
+        configFile: "test/e2e.conf.js",
+        keepAlive: true
+      },
+      run: {}
     }
   });
 
@@ -477,6 +504,15 @@ module.exports = function (grunt) {
     'autoprefixer',
     'connect:test',
     'karma:debugUnit'
+  ]);
+  
+  grunt.registerTask('e2eTest', [
+    'clean:server',
+    'wiredep',
+    //'concurrent:test',
+    'autoprefixer',
+    'connect:test',
+    'protractor'
   ]);
 
   grunt.registerTask('build', [

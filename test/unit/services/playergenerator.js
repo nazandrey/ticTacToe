@@ -11,8 +11,15 @@ describe('Service: playerGenerator', function () {
     playerGenerator = _playerGenerator_;
   }));
 
-  it('should do something', function () {
-    expect(!!playerGenerator).toBe(true);
+  it('should generate players', function () {
+    var rules = {
+        packageArr:[['circle'],['cross']]
+      },
+      playerArr = playerGenerator.generate(rules);
+    expect(playerArr.length).toEqual(rules.packageArr.length);
+    playerArr.forEach(function(player, idx){
+      expect(player.id).toBeDefined();
+      expect(player.shapeArr).toBeArray();
+    });
   });
-
 });

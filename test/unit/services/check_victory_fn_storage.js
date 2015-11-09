@@ -11,8 +11,9 @@ describe('Service: checkVictoryFnStorage', function () {
     checkVictoryFnStorage = _checkVictoryFnStorage_;
   }));
 
-  it('should do something', function () {
-    expect(!!checkVictoryFnStorage).toBe(true);
+  it('should return default function', function () {
+    //should be returned, not called
+    expect(checkVictoryFnStorage.getDefaultFn()).toBeFunction();
   });
 
 });

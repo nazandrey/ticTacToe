@@ -13,7 +13,6 @@ describe('Service: checkVictoryFnStorage', function () {
 
   it('should return default function', function () {
     //should be returned, not called
-    expect(checkVictoryFnStorage.getDefaultFn()).toBeFunction();
+    expect(checkVictoryFnStorage.getByKey('default')).toBeFunction();
   });
-
 });

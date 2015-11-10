@@ -11,7 +11,10 @@ angular.module('ticTacToeApp')
   .factory('checkVictoryFnStorage', function () {
     // Service logic
     // ...
-
+    var checkVictoryFnArr = {};
+    
+    checkVictoryFnArr['default'] = defaultFn;
+    
     function defaultFn(lastRow, lastCol, lastUsedShape, shapeArrLength, field){
       var SHAPE_WIN_COUNT = 5;        
       if(shapeArrLength === 1){
@@ -130,9 +133,13 @@ angular.module('ticTacToeApp')
         return isVictory;
       };  
     }
+    
+    function getByKey(key){
+      return checkVictoryFnArr[key];
+    }
 
     // Public API here
     return {
-      getDefaultFn: defaultFn
+      getByKey: getByKey
     };
   });

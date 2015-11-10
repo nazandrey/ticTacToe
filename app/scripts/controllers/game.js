@@ -95,7 +95,7 @@ angular.module('ticTacToeApp')
           _updateCurrPlayerMainShape();
         } 
         
-        $scope.isVictory = checkVictoryFnStorage.getDefaultFn; 
+        $scope.isVictory = checkVictoryFnStorage.getByKey(turn_rules.checkVictoryFn); 
         
         $scope.showVictory = function(){
           $scope.show_victory_view = true;

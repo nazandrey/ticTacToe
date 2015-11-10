@@ -37,7 +37,11 @@ describe('Controller: GameCtrl', function () {
     expect(scope.player_rules).toBeDefined();
   });
   
-  it('should have turn rules', inject(function (rules) {
-    expect(rules.getTurnRules()).toBeDefined();
-  }));  
+  it('should have scope game functions', function(){
+    expect(scope.isVictory).toBeFunction();
+    expect(scope.getCurrPlayerShapeArr).toBeFunction();
+    expect(scope.startNewGame).toBeFunction();
+    expect(scope.changeActivePlayer).toBeFunction();
+    expect(scope.showVictory).toBeFunction();
+  })
 });

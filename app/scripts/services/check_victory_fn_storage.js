@@ -15,6 +15,10 @@ angular.module('ticTacToeApp')
     
     checkVictoryFnArr['default'] = defaultFn;
     
+    function getByKey(key){
+      return checkVictoryFnArr[key];
+    }
+    
     function defaultFn(lastRow, lastCol, lastUsedShape, shapeArrLength, field){
       var SHAPE_WIN_COUNT = 5;        
       if(shapeArrLength === 1){
@@ -134,10 +138,6 @@ angular.module('ticTacToeApp')
       };  
     }
     
-    function getByKey(key){
-      return checkVictoryFnArr[key];
-    }
-
     // Public API here
     return {
       getByKey: getByKey

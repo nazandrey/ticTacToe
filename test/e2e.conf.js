@@ -17,8 +17,12 @@ exports.config = {
   // They may include glob patterns.
   specs: [
     //'e2e/example_spec.js',
-    'e2e/shape_change.js'
+    'e2e/**/*.js'
   ],
+  
+  exclude: [
+    'e2e/example_spec.js'
+  ],  
 
   // Options to be passed to Jasmine-node.
   jasmineNodeOpts: {

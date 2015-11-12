@@ -67,6 +67,10 @@ angular.module('ticTacToeApp')
         // Проверка правильности хода      
         $scope.turn = function(row,col){
           if($scope.show_victory_view) return;
+          var field = field_ctrl.getField();          
+          if(field[row][col].shape !== "empty") {
+            return;
+          }
           
           var curr_player_shape_arr = $scope.getCurrPlayerShapeArr(),
             new_shape = null;
@@ -75,7 +79,6 @@ angular.module('ticTacToeApp')
           } else {
             //Выбор доступных игроку фигур
           }
-          var field = field_ctrl.getField();
           field[row][col].shape = new_shape;
           //Смена игрока
           if(!$scope.isVictory(row, col, field[row][col].shape, curr_player_shape_arr.length, field)){

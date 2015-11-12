@@ -8,7 +8,7 @@ describe('game shape appear', function() {
   
   it('should be', function() { 
     var cellArr = element.all(by.tagName('cell'));
-    for(var i = 3; i < 6; i++){
+    for(var i = 3; i < 5; i++){
       var cell = cellArr.get(i);
       expect(cell.getText()).toBe("( )");   
       cell.click();

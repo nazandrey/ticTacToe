@@ -1,8 +1,6 @@
 describe('game shape change', function() {
-  browser.get('http://localhost:9001/#/game');
-  browser.refresh();
-  
   beforeEach(function(){
+    browser.get('/#/game');
     browser.waitForAngular();
   });
   
@@ -12,7 +10,6 @@ describe('game shape change', function() {
     cell.click();
     expect(cell.getText()).toBe("(o)");  
     cell.click();
-    //now it doesnt pass but will...
     expect(cell.getText()).toBe("(o)");  
   });  
 });

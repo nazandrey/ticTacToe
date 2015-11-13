@@ -1,8 +1,10 @@
 describe('navigate', function() {
-  browser.get('http://localhost:9001');
-  $('[ng-click="toGame()"]').click();
+  beforeEach(function(){
+    browser.get('/');
+  });
   
   it('should be in game', function() {    
+    $('[ng-click="toGame()"]').click();
     expect(browser.getCurrentUrl()).toContain("game");   
   });
 });

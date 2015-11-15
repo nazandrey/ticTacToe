@@ -472,6 +472,49 @@ module.exports = function (grunt) {
           debug: true
         }
       }
+    },
+    
+    webdriver: {
+      options: {
+        startCommand: "./node_modules/protractor/bin/webdriver-manager start"
+      },
+      start: {
+        
+      },
+    },
+    
+    
+    protractor_webdriver: {
+      options: {
+        keepAlive: true
+      },
+      start: {
+        // Target-specific file lists and/or options go here. 
+      },
+    },
+    
+    shell: {
+      options: {
+        
+      },
+      webdriver: {
+        command: 'start "Selenium Server" grunt webdriver:start',
+        options: {
+        
+          callback: function(err, stdout, stderr, cb) {
+            var done = this.async();
+            grunt.log.writeln('here?')
+            console.log(stdout);
+            if(!err){
+              grunt.event.emit('webdriver.launched');
+            } else {
+              grunt.event.emit('webdriver.error');
+            }
+            cb();
+          }
+          
+        }        
+      }
     }
   });
 
@@ -515,6 +558,11 @@ module.exports = function (grunt) {
     'karma:debugUnit'
   ]);
   
+  grunt.registerTask('webdriver', [
+    'protractor_webdriver:start',
+    'keepalive'
+  ]);
+  
   grunt.registerTask('e2eTest', [
     'clean:server',
     'wiredep',
@@ -523,6 +571,88 @@ module.exports = function (grunt) {
     'connect:test',
     'protractor:run'
   ]);
+  
+  grunt.registerTask('custom','wtf?',function(){
+    function launchE2eTasks(){
+      grunt.task.run([
+            'clean:server',
+            'wiredep',
+            //'concurrent:test',
+            'autoprefixer',
+            'connect:test',
+            'protractor:run'
+      ]);
+    }
+    
+    
+    grunt.log.writeln('custom launched');
+    grunt.log.writeln("grunt.config.get('webdriverLaunched'): " + grunt.config.get('webdriverLaunched'));
+    if(!grunt.config.get('webdriverLaunched')){    
+      var done = this.async();    
+      grunt.log.writeln('inside not launched webdriver');
+      grunt.task.run([
+        'shell:webdriver'
+      ]);
+      //launchE2eTasks();
+      grunt.event.on('webdriver.launched',function(){
+        launchE2eTasks();
+        done();
+      });
+      
+      
+      var options = {
+        // The command to execute. It should be in the system path.
+        //cmd: 'grunt',
+        // If specified, the same grunt bin that is currently running will be
+        // spawned as the child command, instead of the "cmd" option. Defaults
+        // to false.
+        grunt: true,
+        // An array of arguments to pass to the command.
+        args: ['webdriver'],
+        // Additional options for the Node.js child_process spawn method.
+        //opts: nodeSpawnOptions,
+        // If this value is set and an error occurs, it will be used as the value
+        // and null will be passed as the error value.
+        //fallback: fallbackValue
+      };      
+      /*
+      grunt.util.spawn(options, function (error, result, code) {
+        grunt.log.writeln('error');
+        if(!error){
+          grunt.config.set('webdriverLaunched',true);
+          
+          launchE2eTasks()
+          grunt.log.writeln('error: ' + error);
+          grunt.log.writeln('result: ' + result);
+          grunt.log.writeln('code: ' + code);
+        } else {
+          grunt.log.error('error: ' + error);
+          grunt.log.error('result: ' + result);
+          grunt.log.error('code: ' + code);
+        }
+        // If the exit code was non-zero and a fallback wasn't specified, an Error
+        // object, otherwise null.
+        //error
+        // The result object is an object with the properties .stdout, .stderr, and
+        // .code (exit code).
+        //result
+        // When result is coerced to a string, the value is stdout if the exit code
+        // was zero, the fallback if the exit code was non-zero and a fallback was
+        // specified, or stderr if the exit code was non-zero and a fallback was
+        // not specified.
+        //String(result)
+        // The numeric exit code.
+        //code
+      })
+      */
+    } else {
+      grunt.log.wrinteln('inside launched webdriver');
+      launchE2eTasks()
+    } 
+  
+    
+    
+  })
 
   grunt.registerTask('build', [
     'clean:dist',

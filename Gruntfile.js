@@ -463,12 +463,12 @@ module.exports = function (grunt) {
         keepAlive: true
       },
       run: {
-      
+        options:{
+          configFile: "test/e2e_fast.conf.js",
+        }        
       },
       debug: {
         options: {
-          configFile: "test/e2e.conf.js",
-          keepAlive: true,
           debug: true
         }
       }
@@ -555,14 +555,16 @@ module.exports = function (grunt) {
     'shell:webdriver'
   ]);  
   
-  grunt.registerTask('e2eTest', [
-    'clean:server',
-    'wiredep',
-    //'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'protractor:run'
-  ]); 
+  grunt.registerTask('e2eTest', function(mode){
+    grunt.task.run([
+     'clean:server',
+      'wiredep',
+      //'concurrent:test',
+      'autoprefixer',
+      'connect:test',
+      'protractor:' + (mode || 'run')
+    ]);    
+  }); 
   
   grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');

@@ -7,19 +7,17 @@ exports.config = {
 
   // Capabilities to be passed to the webdriver instance.
   capabilities: {
-    'browserName': 'phantomjs',
-    'phantomjs.binary.path': require('phantomjs').path,
-    'phantomjs.cli.args': ['--ignore-ssl-errors=true', '--web-security=false']
+    'browserName': 'chrome',
   },
   
   framework: 'jasmine2',
-  
+
   // Spec patterns are relative to the configuration file location passed
   // to protractor (in this example conf.js).
   // They may include glob patterns.
   specs: [
     //'e2e/example_spec.js',
-    'e2e/**/*.js'
+    'e2e/**/*.smoke.js'
   ],
   
   exclude: [

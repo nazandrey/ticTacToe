@@ -1,0 +1,21 @@
+#field {
+  padding: 0;
+  
+  table{
+	width: 90%;
+	margin: auto;
+	border: 1px solid grey;
+	border-collapse: collapse;
+	td, th{		
+		border: 1px solid lightgrey;
+	}
+	td{
+		text-align: center;
+		p{
+			padding: 0;
+			margin: 0;
+		}
+	}
+
+  }
+}

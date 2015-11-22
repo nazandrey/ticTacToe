@@ -10,16 +10,18 @@ angular.module('ticTacToeApp')
   .directive('cell', function (shape) {
     return {
       templateUrl: 'views/directive_templates/cell.html',
-      restrict: 'E',
+      restrict: 'A',
       transclude: true,
       scope: {
         cellData: '=data',
         turn: '='
       },
-      link: function(scope, element, attrs) {   
+      link: function(scope, element, attrs) {  
+        var IMG_PATH_PREFIX = 'images/',
+          IMG_EXTENSION = '.png';
         scope.$watch("cellData.shape",function(newShape, oldShape){    
           if(newShape !== oldShape || !scope.shapeView){
-            scope.shapeView = shape.getView(newShape);
+            scope.shapeViewSrc = IMG_PATH_PREFIX + newShape + IMG_EXTENSION;
           }
         })
       }

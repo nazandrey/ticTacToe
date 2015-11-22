@@ -2,7 +2,7 @@
   padding: 0;
   
   table{
-	width: 90%;
+	width: 90vmin;
 	margin: auto;
 	border: 1px solid grey;
 	border-collapse: collapse;
@@ -10,12 +10,17 @@
 		border: 1px solid lightgrey;
 	}
 	td{
-		text-align: center;
-		p{
-			padding: 0;
-			margin: 0;
+		padding: 0;
+		margin: 0;
+		height: 6vmin;
+		width: 6vmin;
+		div{
+			height: 100%;
+			width: 100%;
+		}
+		[cell] div{
+			background-size: contain;
 		}
 	}
-
   }
 }

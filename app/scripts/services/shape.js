@@ -9,6 +9,8 @@
  */
 angular.module('ticTacToeApp')
   .factory('shape', function () {
+  
+  
     function getView(shape){         
       switch(shape){
         case 'empty': 

@@ -447,7 +447,7 @@ module.exports = function (grunt) {
         ],
         singleRun: true
       },
-      debugUnit: {
+      unitDebug: {
         configFile: 'test/karma.conf.js',
         browsers: [
           "Chrome"
@@ -515,7 +515,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
-      //'concurrent:server',
+      'concurrent:server',
       'autoprefixer:server',
       'connect:livereload',
       'open',
@@ -528,22 +528,24 @@ module.exports = function (grunt) {
     grunt.task.run(['serve:' + target]);
   });
 
-  grunt.registerTask('test', [
-    'clean:server',
-    'wiredep',
-    //'concurrent:test',
-    'autoprefixer',
-    'connect:test',
-    'karma:unit'
-  ]);
+  grunt.registerTask('test', function(mode){
+    grunt.task.run([
+      'clean:server',
+      'wiredep',
+      'concurrent:test',
+      'autoprefixer',
+      'connect:test',
+      'karma:unit' + (mode === 'debug' ? 'Debug' : '')
+    ]);
+  });
   
   grunt.registerTask('debugTest', [
     'clean:server',
     'wiredep',
-    //'concurrent:test',
+    'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma:debugUnit'
+    'karma:Unit'
   ]);
   
   grunt.registerTask('launchWebdriver', [
@@ -559,7 +561,7 @@ module.exports = function (grunt) {
     grunt.task.run([
      'clean:server',
       'wiredep',
-      //'concurrent:test',
+      'concurrent:test',
       'autoprefixer',
       'connect:test',
       'protractor:' + (mode || 'run')

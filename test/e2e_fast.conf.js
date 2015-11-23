@@ -17,7 +17,7 @@ exports.config = {
   // They may include glob patterns.
   specs: [
     //'e2e/example_spec.js',
-    'e2e/**/*.smoke.js'
+    'e2e/**/*.js'
   ],
   
   exclude: [

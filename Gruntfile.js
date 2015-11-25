@@ -436,7 +436,7 @@ module.exports = function (grunt) {
         'svgmin'
       ]
     },
-
+  
     // Test settings
     //unit
     karma: {
@@ -456,6 +456,8 @@ module.exports = function (grunt) {
       }
     },
     
+    
+
     //e2e
     protractor: {
       options: {
@@ -502,6 +504,22 @@ module.exports = function (grunt) {
         options: {
         
         }        
+      }
+    },
+    
+    confirm: {
+      launchWebdriver:{
+        options: {
+          // Static text. 
+          question: 'Do you want launch Selenium Server?',
+          input: '_key:y'
+        }
+      },
+      webdriver: {
+        options: {
+          // Static text. 
+          question: 'Check Selenium Server. Is it running?'
+        }
       }
     }
   });
@@ -557,9 +575,10 @@ module.exports = function (grunt) {
     'shell:webdriver'
   ]);  
   
-  grunt.registerTask('e2eTest', function(mode){
+  grunt.registerTask('e2eTest', function(mode){  
     grunt.task.run([
-     'clean:server',
+      'confirm:webdriver',
+      'clean:server',
       'wiredep',
       'concurrent:test',
       'autoprefixer',

@@ -2,7 +2,7 @@
   padding: 0;
   
   table{
-	width: 90vmin;
+	width: 90%;
 	margin: auto;
 	border: 1px solid grey;
 	border-collapse: collapse;
@@ -10,16 +10,24 @@
 		border: 1px solid lightgrey;
 	}
 	td{
-		padding: 0;
+		position: relative;
 		margin: 0;
-		height: 6vmin;
-		width: 6vmin;
+		:after{
+			content:'';
+			display:block;
+			margin-top:100%;
+		}
 		div{
 			height: 100%;
 			width: 100%;
 		}
 		[cell] div{
 			background-size: contain;
+			position:absolute;
+			top:0;
+			bottom:0;
+			left:0;
+			right:0;
 		}
 	}
   }

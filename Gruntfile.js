@@ -18,7 +18,7 @@ module.exports = function (grunt) {
   // Configurable paths for the application
   var appConfig = {
     app: require('./bower.json').appPath || 'app',
-    dist: 'dist'
+    cordova: 'cordova/www'
   };
 
   // Define the configuration for all the tasks
@@ -130,10 +130,10 @@ module.exports = function (grunt) {
           }
         }
       },
-      dist: {
+      cordova: {
         options: {
-          open: true,
-          base: '<%= yeoman.dist %>'
+          open: false,
+          base: '<%= yeoman.cordova %>'
         }
       }
     },
@@ -160,13 +160,13 @@ module.exports = function (grunt) {
 
     // Empties folders to start fresh
     clean: {
-      dist: {
+      cordova: {
         files: [{
           dot: true,
           src: [
             '.tmp',
-            '<%= yeoman.dist %>/{,*/}*',
-            '!<%= yeoman.dist %>/.git{,*/}*'
+            '<%= yeoman.cordova %>/{,*/}*',
+            '!<%= yeoman.cordova %>/.git{,*/}*'
           ]
         }]
       },
@@ -189,7 +189,7 @@ module.exports = function (grunt) {
           dest: '.tmp/styles/'
         }]
       },
-      dist: {
+      cordova: {
         files: [{
           expand: true,
           cwd: '.tmp/styles/',
@@ -244,9 +244,9 @@ module.exports = function (grunt) {
         assetCacheBuster: false,
         raw: 'Sass::Script::Number.precision = 10\n'
       },
-      dist: {
+      cordova: {
         options: {
-          generatedImagesDir: '<%= yeoman.dist %>/images/generated'
+          generatedImagesDir: '<%= yeoman.cordova %>/images/generated'
         }
       },
       server: {
@@ -254,19 +254,7 @@ module.exports = function (grunt) {
           sourcemap: true
         }
       }
-    },
-
-    // Renames files for browser caching purposes
-    filerev: {
-      dist: {
-        src: [
-          '<%= yeoman.dist %>/scripts/{,*/}*.js',
-          '<%= yeoman.dist %>/styles/{,*/}*.css',
-          '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/styles/fonts/*'
-        ]
-      }
-    },
+    },   
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
@@ -274,7 +262,7 @@ module.exports = function (grunt) {
     useminPrepare: {
       html: '<%= yeoman.app %>/index.html',
       options: {
-        dest: '<%= yeoman.dist %>',
+        dest: '<%= yeoman.cordova %>',
         flow: {
           html: {
             steps: {
@@ -287,15 +275,15 @@ module.exports = function (grunt) {
       }
     },
 
-    // Performs rewrites based on filerev and the useminPrepare configuration
+    // Performs rewrites based on filerev and the useminPrepare configuration         
     usemin: {
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
-      css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
+      html: ['<%= yeoman.cordova %>/{,*/}*.html'],
+      css: ['<%= yeoman.cordova %>/styles/{,*/}*.css'],
       options: {
         assetsDirs: [
-          '<%= yeoman.dist %>',
-          '<%= yeoman.dist %>/images',
-          '<%= yeoman.dist %>/styles'
+          '<%= yeoman.cordova %>',
+          '<%= yeoman.cordova %>/images',
+          '<%= yeoman.cordova %>/styles'
         ]
       }
     },
@@ -327,29 +315,29 @@ module.exports = function (grunt) {
     // },
 
     imagemin: {
-      dist: {
+      cordova: {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/images',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
-          dest: '<%= yeoman.dist %>/images'
+          dest: '<%= yeoman.cordova %>/images'
         }]
       }
     },
 
     svgmin: {
-      dist: {
+      cordova: {
         files: [{
           expand: true,
           cwd: '<%= yeoman.app %>/images',
           src: '{,*/}*.svg',
-          dest: '<%= yeoman.dist %>/images'
+          dest: '<%= yeoman.cordova %>/images'
         }]
       }
     },
 
     htmlmin: {
-      dist: {
+      cordova: {
         options: {
           collapseWhitespace: true,
           conservativeCollapse: true,
@@ -359,9 +347,9 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= yeoman.dist %>',
+          cwd: '<%= yeoman.cordova %>',
           src: ['*.html', 'views/{,*/}*.html'],
-          dest: '<%= yeoman.dist %>'
+          dest: '<%= yeoman.cordova %>'
         }]
       }
     },
@@ -369,7 +357,7 @@ module.exports = function (grunt) {
     // ng-annotate tries to make the code safe for minification automatically
     // by using the Angular long form for dependency injection.
     ngAnnotate: {
-      dist: {
+      cordova: {
         files: [{
           expand: true,
           cwd: '.tmp/concat/scripts',
@@ -381,19 +369,20 @@ module.exports = function (grunt) {
 
     // Replace Google CDN references
     cdnify: {
-      dist: {
-        html: ['<%= yeoman.dist %>/*.html']
+      cordova: {
+        html: ['<%= yeoman.cordova %>/*.html']
       }
     },
+    
 
     // Copies remaining files to places other tasks can use
-    copy: {
-      dist: {
+    copy: {      
+      cordova: {
         files: [{
           expand: true,
           dot: true,
           cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
+          dest: '<%= yeoman.cordova %>',
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
@@ -405,13 +394,13 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: '.tmp/images',
-          dest: '<%= yeoman.dist %>/images',
+          dest: '<%= yeoman.cordova %>/images',
           src: ['generated/*']
         }, {
           expand: true,
           cwd: '.',
           src: 'bower_components/bootstrap-sass-official/assets/fonts/bootstrap/*',
-          dest: '<%= yeoman.dist %>'
+          dest: '<%= yeoman.cordova %>'
         }]
       },
       styles: {
@@ -430,8 +419,8 @@ module.exports = function (grunt) {
       test: [
         'compass'
       ],
-      dist: [
-        'compass:dist',
+      cordova: [
+        'compass:cordova',
         'imagemin',
         'svgmin'
       ]
@@ -526,8 +515,10 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
-    if (target === 'dist') {
-      return grunt.task.run(['build', 'connect:dist:keepalive']);
+    if (target === 'dist' || target === 'cordova') {
+      var tasks = (target === 'dist') ? ['build'] : [];
+      tasks.push('open', 'connect:' + target + ':keepalive');
+      return grunt.task.run(tasks);
     }
 
     grunt.task.run([
@@ -545,7 +536,7 @@ module.exports = function (grunt) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve:' + target]);
   });
-
+    
   grunt.registerTask('test', function(mode){
     grunt.task.run([
       'clean:server',
@@ -563,7 +554,7 @@ module.exports = function (grunt) {
     'concurrent:test',
     'autoprefixer',
     'connect:test',
-    'karma:Unit'
+    'karma:unit'
   ]);
   
   grunt.registerTask('launchWebdriver', [
@@ -585,26 +576,21 @@ module.exports = function (grunt) {
       'connect:test',
       'protractor:' + (mode || 'run')
     ]);    
-  }); 
-  
-  grunt.registerTask('server', 'DEPRECATED TASK. Use the "serve" task instead', function (target) {
-    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-    grunt.task.run(['serve:' + target]);
-  });
+  });    
   
   grunt.registerTask('build', [
-    'clean:dist',
+    'clean:cordova',
     'wiredep',
     'useminPrepare',
-    'concurrent:dist',
+    'concurrent:cordova',
     'autoprefixer',
     'concat',
     'ngAnnotate',
-    'copy:dist',
+    'copy:cordova',
     'cdnify',
     'cssmin',
     'uglify',
-    'filerev',
+    //'filerev',
     'usemin',
     'htmlmin'
   ]);

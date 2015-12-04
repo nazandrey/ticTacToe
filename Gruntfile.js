@@ -389,7 +389,8 @@ module.exports = function (grunt) {
             '*.html',
             'views/{,*/}*.html',
             'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'res/**/*.*'
           ]
         }, {
           expand: true,
@@ -424,6 +425,37 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin'
       ]
+    },
+    
+    //cordova
+    cordovacli: {
+      options: {
+          path: '<%= yeoman.cordova %>',
+          cli: 'cordova'  // cca or cordova
+      },
+      cordova: {
+          options: {
+              command: ['plugin','build'],
+              platforms: ['android'],
+              //plugins: ['device','dialogs'],
+              //path: 'myHybridAppFolder',
+              id: 'com.tictactoe.nazandr',
+              name: 'TicTacToe'
+          }
+      }, 
+      build_android: {
+          options: {
+              command: 'build',
+              platforms: ['android']
+          }
+      },
+      emulate_android: {
+          options: {
+              command: 'emulate',
+              platforms: ['android'],
+              args: ['--target','Nexus5']
+          }
+      }
     },
   
     // Test settings
@@ -515,10 +547,8 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
-    if (target === 'dist' || target === 'cordova') {
-      var tasks = (target === 'dist') ? ['build'] : [];
-      tasks.push('open', 'connect:' + target + ':keepalive');
-      return grunt.task.run(tasks);
+    if (target === 'cordova') {
+      return grunt.task.run(['build', 'connect:cordova:keepalive']);    
     }
 
     grunt.task.run([
@@ -592,7 +622,8 @@ module.exports = function (grunt) {
     'uglify',
     //'filerev',
     'usemin',
-    'htmlmin'
+    'htmlmin',
+    'cordovacli:build_android'
   ]);
 
   grunt.registerTask('default', [

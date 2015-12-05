@@ -430,19 +430,20 @@ module.exports = function (grunt) {
     //cordova
     cordovacli: {
       options: {
-          path: '<%= yeoman.cordova %>',
-          cli: 'cordova'  // cca or cordova
+        path: '<%= yeoman.cordova %>',
+        cli: 'cordova'  // cca or cordova
       },
-      cordova: {
-          options: {
-              command: ['plugin','build'],
-              platforms: ['android'],
-              //plugins: ['device','dialogs'],
-              //path: 'myHybridAppFolder',
-              id: 'com.tictactoe.nazandr',
-              name: 'TicTacToe'
-          }
-      }, 
+      init: {
+        options: {
+          command: ['create','platform'/*'plugin'*/],
+          action: 'add',
+          platforms: ['android'],
+          //plugins: ['device','dialogs'],
+          path: 'cordova',
+          id: 'com.tictactoe.nazandr',
+          name: 'TicTacToe'
+        }
+      },
       build_android: {
           options: {
               command: 'build',
@@ -607,6 +608,11 @@ module.exports = function (grunt) {
       'protractor:' + (mode || 'run')
     ]);    
   });    
+  
+  grunt.registerTask('cordovaInit', [
+    'cordovacli:init',
+    'build'
+  ]);
   
   grunt.registerTask('build', [
     'clean:cordova',

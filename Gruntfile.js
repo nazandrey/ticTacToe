@@ -445,17 +445,17 @@ module.exports = function (grunt) {
         }
       },
       build_android: {
-          options: {
-              command: 'build',
-              platforms: ['android']
-          }
+        options: {
+          command: 'build',
+          platforms: ['android']
+        }
       },
       emulate_android: {
-          options: {
-              command: 'emulate',
-              platforms: ['android'],
-              args: ['--target','Nexus5']
-          }
+        options: {
+          command: 'emulate',
+          platforms: ['android'],
+          args: ['--target','Nexus5']
+        }
       }
     },
   

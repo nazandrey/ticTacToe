@@ -10,7 +10,9 @@
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
-  require('load-grunt-tasks')(grunt);
+  //require('load-grunt-tasks')(grunt);
+  
+  require('jit-grunt')(grunt);
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -40,17 +42,18 @@ module.exports = function (grunt) {
         files: ['bower.json'],
         tasks: ['wiredep']
       },
-      //js: {
-      //  files: ['<%= yeoman.app %>/scripts/{,**/}*.js'],
-      //  tasks: ['newer:jshint:all'],
-      //  options: {
-      //    livereload: '<%= connect.options.livereload %>'
-      //  }
-      //},
-      //jsTest: {
-      //  files: ['test/unit/{,*/}*.js'],
-      //  tasks: ['newer:jshint:test', 'karma']
-      //},
+      js: {
+        files: ['<%= yeoman.app %>/scripts/{,**/}*.js'],
+        //tasks: ['newer:jshint:all'],
+        options: {
+          livereload: '<%= connect.options.livereload %>',
+          spawn: false
+        }
+      },
+      jsTest: {
+        files: ['test/unit/{,*/}*.js'],
+        tasks: [/*'newer:jshint:test'*/, 'karma']
+      },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:server', 'autoprefixer']
@@ -60,7 +63,8 @@ module.exports = function (grunt) {
       },
       livereload: {
         options: {
-          livereload: '<%= connect.options.livereload %>'
+          livereload: '<%= connect.options.livereload %>',
+          spawn: false
         },
         files: [
           '<%= yeoman.app %>/{,**/}*.html',

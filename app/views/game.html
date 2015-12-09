@@ -1,16 +1,15 @@
-<p>This is the game view.</p>
-<div>
-  <span>
-    player № <span ng-bind="active_player_idx + 1"></span>
+<div id="playerText" class="text_block">
+  <span> 
+    Player №<span ng-bind="active_player_idx + 1"></span>
   </span> 
   <span>
-    ( <span ng-bind="curr_player_main_shape"></span> )
+    [ <span ng-bind="curr_player_main_shape"></span> ]
   </span>
   <span>
     <span ng-if="show_victory_view"> has won!</span>
   </span> 
 </div>
-<div ng-if="show_victory_view" ng-click="startNewGame();">
+<div ng-if="show_victory_view" ng-click="startNewGame();" class="text_block">
   Another game?
 </div>
 <field id="field"></field>

@@ -56,7 +56,7 @@ module.exports = function (grunt) {
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-        tasks: ['compass:server', 'autoprefixer']
+        tasks: ['compass:server', 'postcss']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -178,9 +178,11 @@ module.exports = function (grunt) {
     },
 
     // Add vendor prefixed styles
-    autoprefixer: {
+    postcss: {
       options: {
-        browsers: ['last 1 version']
+        processors: [
+          require('autoprefixer')({browsers: ['last 1 version']})
+        ]
       },
       server: {
         options: {
@@ -201,7 +203,7 @@ module.exports = function (grunt) {
           dest: '.tmp/styles/'
         }]
       }
-    },
+    },    
 
     // Automatically inject Bower components into the app
     wiredep: {
@@ -560,7 +562,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:server',
-      'autoprefixer:server',
+      'postcss:server',
       'connect:livereload',
       'open',
       'watch'
@@ -577,7 +579,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:test',
-      'autoprefixer',
+      'postcss',
       'connect:test',
       'karma:unit' + (mode === 'debug' ? 'Debug' : '')
     ]);
@@ -587,7 +589,7 @@ module.exports = function (grunt) {
     'clean:server',
     'wiredep',
     'concurrent:test',
-    'autoprefixer',
+    'postcss',
     'connect:test',
     'karma:unit'
   ]);
@@ -607,7 +609,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:test',
-      'autoprefixer',
+      'postcss',
       'connect:test',
       'protractor:' + (mode || 'run')
     ]);    
@@ -623,7 +625,7 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'concurrent:cordova',
-    'autoprefixer',
+    'postcss',
     'concat',
     'ngAnnotate',
     'copy:cordova',

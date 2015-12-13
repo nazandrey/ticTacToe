@@ -51,8 +51,8 @@ module.exports = function (grunt) {
         }
       },
       jsTest: {
-        files: ['test/unit/{,*/}*.js'],
-        tasks: [/*'newer:jshint:test'*/, 'karma']
+        files: ['test/unit/{,*/}*.js']//,
+        //tasks: [/*'newer:jshint:test',*/ 'karma:unit']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -319,7 +319,7 @@ module.exports = function (grunt) {
     // concat: {
     //   dist: {}
     // },
-
+    
     imagemin: {
       cordova: {
         files: [{
@@ -379,7 +379,6 @@ module.exports = function (grunt) {
         html: ['<%= yeoman.cordova %>/*.html']
       }
     },
-    
 
     // Copies remaining files to places other tasks can use
     copy: {      
@@ -468,24 +467,26 @@ module.exports = function (grunt) {
     // Test settings
     //unit
     karma: {
-      unit: {
+      options:{
         configFile: 'test/karma.conf.js',
         browsers: [
           "PhantomJS"
         ],
+        singleRun: false
+      },
+      shell: {
+      
+      },
+      unit: {
         singleRun: true
       },
-      unitDebug: {
-        configFile: 'test/karma.conf.js',
+      debug: {        
         browsers: [
           "Chrome"
-        ],
-        singleRun: false
-      }
+        ]
+      }      
     },
     
-    
-
     //e2e
     protractor: {
       options: {
@@ -532,7 +533,10 @@ module.exports = function (grunt) {
         options: {
         
         }        
-      }
+      },
+      karma: {
+        command: 'start "Karma" grunt test:shell'     
+      }      
     },
     
     confirm: {
@@ -564,6 +568,7 @@ module.exports = function (grunt) {
       'concurrent:server',
       'postcss:server',
       'connect:livereload',
+      'shell:karma',
       'open',
       'watch'
     ]);
@@ -575,24 +580,20 @@ module.exports = function (grunt) {
   });
     
   grunt.registerTask('test', function(mode){
-    grunt.task.run([
-      'clean:server',
-      'wiredep',
-      'concurrent:test',
-      'postcss',
-      'connect:test',
-      'karma:unit' + (mode === 'debug' ? 'Debug' : '')
-    ]);
+    var taskArr = [];
+    if(mode !== 'shell'){
+      taskArr.push('clean:server');
+      taskArr.push('wiredep');
+      taskArr.push('concurrent:test');
+      taskArr.push('postcss');
+    } else {
+      taskArr.push('concurrent:test');
+    }
+    taskArr.push('connect:test');
+    taskArr.push('karma:' + (mode || 'unit'));
+    
+    grunt.task.run(taskArr);
   });
-  
-  grunt.registerTask('debugTest', [
-    'clean:server',
-    'wiredep',
-    'concurrent:test',
-    'postcss',
-    'connect:test',
-    'karma:unit'
-  ]);
   
   grunt.registerTask('launchWebdriver', [
     'protractor_webdriver:start',

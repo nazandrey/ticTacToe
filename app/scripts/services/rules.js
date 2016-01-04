@@ -8,7 +8,7 @@
  * Service in the ticTacToeApp.
  */
 angular.module('ticTacToeApp')
-  .factory('rules', function () {
+  .factory('rules', function (utils) {
     var DEFAULT_RULES = {
       field:{
         width: 15,
@@ -21,7 +21,7 @@ angular.module('ticTacToeApp')
         checkVictoryFn: 'default'
       }
     },
-      current_rules = DEFAULT_RULES;
+      current_rules = angular.copy(DEFAULT_RULES);
       
     
   
@@ -36,10 +36,34 @@ angular.module('ticTacToeApp')
     function getTurnRules(){
       return current_rules.turn;
     }
+    
+    function setFieldRules(newFieldRules){
+      $.extend(current_rules.field, newFieldRules);
+    }
+    
+    function setPlayerRules(newPlayerRules){
+      $.extend(current_rules.player, newPlayerRules);
+    }
+    
+    function setPlayerPackageArrRules(newPlayerPackageArrRules){
+      var packageArr = angular.copy(DEFAULT_RULES.player.packageArr);
+      packageArr = packageArr.map(function(val,idx){
+        return utils.unique(val,newPlayerPackageArrRules);
+      });
+      setPlayerRules({"packageArr": packageArr});
+    }
+    
+    function setTurnRules(newTurnRules){
+      $.extend(current_rules.turn, newTurnRules);
+    }
   
-    return{
+    return {
       getFieldRules: getFieldRules,
+      setFieldRules: setFieldRules,
       getPlayerRules: getPlayerRules,
-      getTurnRules: getTurnRules
+      setPlayerRules: setPlayerRules,
+      setPlayerPackageArrRules: setPlayerPackageArrRules,
+      getTurnRules: getTurnRules,
+      setTurnRules: setTurnRules
     };
   });

@@ -112,7 +112,7 @@ angular.module('ticTacToeApp')
       function checkIncidentalDiagonal(lastRow, lastCol, lastUsedShape){
         var startCol = lastCol,
           startRow = lastRow;
-        while(startRow < (field.length - 1) && startCol !== 0){
+        while(startRow < (field.length) && startCol !== 0){
           startCol--;
           startRow++;
         }          
@@ -120,7 +120,7 @@ angular.module('ticTacToeApp')
           col = startCol,
           shapeCount = 0,
           isVictory = false;
-        while(row !== 0 && col < (field[0].length - 1)){
+        while(row !== 0 && col < (field[0].length)){
           if(field[row][col].shape === lastUsedShape){
             shapeCount++;
             if(shapeCount === SHAPE_WIN_COUNT){

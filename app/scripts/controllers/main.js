@@ -12,4 +12,8 @@ angular.module('ticTacToeApp')
     $scope.toGame = function(){
       $location.url("/game");
     }
+    
+    $scope.toGameOptions = function(){
+      $location.url("/game_options");
+    }
   });

@@ -5,6 +5,7 @@ version 0.11.1.
 
 ## Install
 For development you need some things be globally installed:
+
 * compass 
 * grunt
 * bower

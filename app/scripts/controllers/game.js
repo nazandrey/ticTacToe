@@ -8,10 +8,6 @@
  * Controller of the ticTacToeApp
  */
 angular.module('ticTacToeApp')
-  .controller('GameCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('GameCtrl', function ($scope, fieldRuleList) {
+    $scope.fieldRuleList = fieldRuleList.get();
   });

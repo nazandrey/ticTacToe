@@ -13,7 +13,8 @@ module.exports = function (grunt) {
   //require('load-grunt-tasks')(grunt);
   
   require('jit-grunt')(grunt, {
-    useminPrepare: 'grunt-usemin'
+    useminPrepare: 'grunt-usemin',
+    protractor: 'grunt-protractor-runner'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -54,7 +55,7 @@ module.exports = function (grunt) {
       },
       jsTest: {
         files: ['test/unit/{,*/}*.js']//,
-        //tasks: [/*'newer:jshint:test',*/ 'karma:unit']
+        //tasks: [/*'newer:jshint:test',*/ 'karma:once']
       },
       compass: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -215,7 +216,7 @@ module.exports = function (grunt) {
       },
       test: {
         devDependencies: true,
-        src: '<%= karma.unit.configFile %>',
+        src: '<%= karma.once.configFile %>',
         ignorePath:  /\.\.\//,
         fileTypes:{
           js: {
@@ -479,7 +480,7 @@ module.exports = function (grunt) {
       shell: {
       
       },
-      unit: {
+      once: {
         singleRun: true
       },
       debug: {        
@@ -537,7 +538,7 @@ module.exports = function (grunt) {
         }        
       },
       karma: {
-        command: 'start "Karma" grunt test:shell'     
+        command: 'start "Karma" grunt unitTest:shell'     
       }      
     },
     
@@ -581,7 +582,7 @@ module.exports = function (grunt) {
     grunt.task.run(['serve:' + target]);
   });
     
-  grunt.registerTask('test', function(mode){
+  grunt.registerTask('unitTest', function(mode){
     var taskArr = [];
     if(mode !== 'shell'){
       taskArr.push('clean:server');
@@ -592,7 +593,7 @@ module.exports = function (grunt) {
       taskArr.push('concurrent:test');
     }
     taskArr.push('connect:test');
-    taskArr.push('karma:' + (mode || 'unit'));
+    taskArr.push('karma:' + (mode || 'once'));
     
     grunt.task.run(taskArr);
   });
@@ -606,15 +607,21 @@ module.exports = function (grunt) {
     'shell:webdriver'
   ]);  
   
-  grunt.registerTask('e2eTest', function(mode){  
+  grunt.registerTask('e2eTest', function(mode){
+    var webdriverTask;
+    if(mode === 'silent'){
+      webdriverTask = 'webdriver';
+    } else {
+      webdriverTask = 'confirm:webdriver';
+    }
     grunt.task.run([
-      'confirm:webdriver',
+      webdriverTask,
       'clean:server',
       'wiredep',
       'concurrent:test',
       'postcss',
       'connect:test',
-      'protractor:' + (mode || 'run')
+      'protractor:' + (mode && mode !== 'silent' || 'run')
     ]);    
   });    
   
@@ -640,10 +647,15 @@ module.exports = function (grunt) {
     'htmlmin',
     'cordovacli:build_android'
   ]);
+  
+  grunt.registerTask('test', [
+    'e2eTest:silent',
+    'unitTest'
+  ]);
 
   grunt.registerTask('default', [
     'newer:jshint',
-    'test',
+    'unitTest',
     'build'
   ]);
 };

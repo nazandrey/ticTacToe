@@ -37,11 +37,18 @@ describe('Controller: GameCtrl', function () {
     expect(scope.player_rules).toBeDefined();
   });
   
+  it('should have player arr', function () {
+    expect(scope.player_arr).toBeDefined();
+    expect(scope.player_arr.length).toBeGreaterThan(0);
+    expect(scope.player_arr[0]).toBeDefined();
+    expect(scope.player_arr[0].shapeArr).toBeDefined();
+  });
+
   it('should have scope game functions', function(){
     expect(scope.isVictory).toBeFunction();
     expect(scope.getCurrPlayerShapeArr).toBeFunction();
     expect(scope.startNewGame).toBeFunction();
     expect(scope.changeActivePlayer).toBeFunction();
     expect(scope.showVictory).toBeFunction();
-  })
+  });
 });

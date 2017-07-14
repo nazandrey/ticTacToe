@@ -30,6 +30,7 @@ module.exports = function(config) {
       'bower_components/angular-touch/angular-touch.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
+      "./node_modules/phantomjs-polyfill/bind-polyfill.js",
       "app/scripts/**/*.js",
       "test/mock/**/*.js",
       "test/unit/**/*.js",

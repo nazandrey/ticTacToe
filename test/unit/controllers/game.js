@@ -17,7 +17,17 @@ describe('Controller: GameCtrl', function () {
     });
   }));
 
-  it('should attach a list of awesomeThings to the scope', function () {
-    expect(GameCtrl.awesomeThings.length).toBe(3);
+  describe('(applying rules)', function () {
+    it('should get field rules', function () {
+      expect(scope.fieldRuleList).toBeObject();
+    });
+
+    it('should get player rules', function () {
+
+    });
+
+    it('should get victory rules', function () {
+
+    });
   });
 });

@@ -23,7 +23,7 @@ describe('Controller: GameCtrl', function () {
     });
 
     it('should get player rules', function () {
-
+      expect(scope.playerRuleList).toBeObject();
     });
 
     it('should get victory rules', function () {

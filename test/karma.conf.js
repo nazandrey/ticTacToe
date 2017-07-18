@@ -18,7 +18,7 @@ module.exports = function(config) {
     frameworks: [
       "jasmine",
       "jasmine-matchers"
-    ], 
+    ],
 
     // list of files / patterns to load in the browser
     files: [
@@ -65,7 +65,7 @@ module.exports = function(config) {
       "karma-jasmine-matchers",
       "karma-ng-html2js-preprocessor"
     ],
-    
+
     preprocessors: {
       'app/views/**/*.html': 'ng-html2js'
     },
@@ -86,7 +86,7 @@ module.exports = function(config) {
     // },
     // URL root prevent conflicts with the site root
     // urlRoot: '_karma_'
-    
+
     /*
     ngHtml2JsPreprocessor: {
       // strip this from the file path
@@ -114,7 +114,7 @@ module.exports = function(config) {
       //   with all provided suffixes and prefixes
       moduleName: 'foo'
       *//*
-    }  
-  */    
+    }
+  */
   });
 };

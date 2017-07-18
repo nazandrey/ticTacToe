@@ -9,15 +9,19 @@
  */
 angular.module('ticTacToeApp')
   .factory('playerRuleList', function () {
-    // Service logic
-    // ...
+    var DEFAULT_PLAYER_RULE_LIST = {
+      playerShapeArr: [
+        ['circle'],
+        ['cross']
+      ]
+    },
+      currPlayerListRules = DEFAULT_PLAYER_RULE_LIST;
 
-    var meaningOfLife = 42;
+    function get() {
+      return currPlayerListRules;
+    }
 
-    // Public API here
     return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
+      get: get
     };
   });

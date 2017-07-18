@@ -18,6 +18,6 @@ describe('Service: playerRuleList', function () {
   });
 
   it('should have shapeArr in given field rule list', function () {
-    expect(currPlayerRuleList.getShapeArr()).toBeArray();
+    expect(currPlayerRuleList.playerShapeArr).toBeArray();
   });
 });

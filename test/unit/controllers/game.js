@@ -26,8 +26,8 @@ describe('Controller: GameCtrl', function () {
       expect(scope.playerRuleList).toBeObject();
     });
 
-    it('should get victory rules', function () {
-
+    it('should check victory', function () {
+      expect(scope.checkVictory).toBeFunction();
     });
   });
 });

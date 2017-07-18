@@ -9,15 +9,16 @@
  */
 angular.module('ticTacToeApp')
   .factory('checkVictoryStrategy', function () {
-    // Service logic
-    // ...
+    var defaultCheckVictoryStrategy = function () {
 
-    var meaningOfLife = 42;
+    },
+      currCheckVictoryStrategy = defaultCheckVictoryStrategy;
 
-    // Public API here
+    function getCurr () {
+      return currCheckVictoryStrategy;
+    }
+
     return {
-      someMethod: function () {
-        return meaningOfLife;
-      }
+      getCurr: getCurr
     };
   });

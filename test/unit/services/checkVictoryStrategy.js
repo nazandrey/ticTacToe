@@ -15,23 +15,28 @@ describe('Service: checkVictoryStrategy', function () {
   });
 
   describe('(default strategy, using information about field and players)', function () {
-    var currCheckVictoryStrategy,
+    var playerFactory,
+      currCheckVictoryStrategy,
       player1,
       player2,
-      playerList;
+      playerList,
+      oo,
+      xx;
 
     beforeEach(inject(function (_playerFactory_) {
       playerFactory = _playerFactory_;
       currCheckVictoryStrategy = checkVictoryStrategy.getCurr(),
       player1 = playerFactory.createPlayer(),
       player2 = playerFactory.createPlayer(),
-      playerList = [player1, player2],
-      oo = player1.getMainShape(),
-      xx = player2.getMainShape();
+      playerList = [player1, player2];
     }));
 
-    it('should be player1 victory', function (playerFactory) {
-      fieldModelMock = [
+    beforeEach(function () {
+      oo = player1.getMainShape();
+    });
+
+    it('should be player1 victory (horizontal)', function () {
+      var fieldModelMock = [
         [oo,oo,oo,oo,oo],
         ['','','','',''],
         ['','','','',''],
@@ -39,6 +44,43 @@ describe('Service: checkVictoryStrategy', function () {
         ['','','','',''],
       ];
       expect(currCheckVictoryStrategy(fieldModelMock, playerList)).toBe("player1");
+    });
+
+    it('should be player1 victory (vertical)', function () {
+      var fieldModelMock = [
+        ['',oo,'','',''],
+        ['',oo,'','',''],
+        ['',oo,'','',''],
+        ['',oo,'','',''],
+        ['',oo,'','',''],
+      ];
+      expect(currCheckVictoryStrategy(fieldModelMock, playerList)).toBe("player1");
+    });
+
+    beforeEach(function () {
+      xx = player2.getMainShape();
+    });
+
+    it('should be player2 victory (diagonal)', function () {
+      var fieldModelMock = [
+        [xx,'','','',''],
+        ['',xx,'','',''],
+        ['','',xx,'',''],
+        ['','','',xx,''],
+        ['','','','',xx],
+      ];
+      expect(currCheckVictoryStrategy(fieldModelMock, playerList)).toBe("player2");
+    });
+
+    it('should be player2 victory (reverse diagonal)', function () {
+      var fieldModelMock = [
+        ['','','','',xx],
+        ['','','',xx,''],
+        ['','',xx,'',''],
+        ['',xx,'','',''],
+        [xx,'','','',''],
+      ];
+      expect(currCheckVictoryStrategy(fieldModelMock, playerList)).toBe("player2");
     });
   });
 });

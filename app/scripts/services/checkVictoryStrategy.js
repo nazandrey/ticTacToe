@@ -8,11 +8,8 @@
  * Factory in the ticTacToeApp.
  */
 angular.module('ticTacToeApp')
-  .factory('checkVictoryStrategy', function () {
-    var defaultCheckVictoryStrategy = function () {
-
-    },
-      currCheckVictoryStrategy = defaultCheckVictoryStrategy;
+  .factory('checkVictoryStrategy', function (simpleCheckVictory) {
+    var currCheckVictoryStrategy = simpleCheckVictory;
 
     function getCurr () {
       return currCheckVictoryStrategy;

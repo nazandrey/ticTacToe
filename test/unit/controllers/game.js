@@ -30,4 +30,20 @@ describe('Controller: GameCtrl', function () {
       expect(scope.checkVictory).toBeFunction();
     });
   });
+
+  describe('(start game)', function () {
+    it('should create field according to rules', function () {
+      expect(scope.fieldModel).toBeArrayOfSize(scope.fieldRuleList.row);
+      expect(scope.fieldModel[0]).toBeArrayOfSize(scope.fieldRuleList.col);
+      expect(scope.fieldModel[0][0]).toBe("");
+    });
+
+    it('should create players according to rules', function () {
+
+    });
+
+    it('should choose first player', function () {
+
+    });
+  });
 });

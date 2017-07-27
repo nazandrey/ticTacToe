@@ -56,7 +56,11 @@ describe('Controller: GameCtrl', function () {
 
     it('should choose first player', function () {
       expect(scope.currPlayer).toBeObject();
-      expect(scope.currPlayer).toEqual(scope.playerList[0]);
+      expect(scope.currPlayer).toBe(scope.playerList[0]);
+    });
+
+    it('should be able to turn', function () {
+      expect(scope.turn).toBeFunction();
     });
   });
 });

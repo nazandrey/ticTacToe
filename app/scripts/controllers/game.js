@@ -15,7 +15,25 @@ angular.module('ticTacToeApp')
     $scope.fieldModel = _createField();
     $scope.playerList = playerFactory.createPlayerList($scope.playerRuleList.playerShapeArr);
     $scope.currPlayer = $scope.playerList[0];
-    $scope.turn = function () {};
+    $scope.turn = turn;
+
+    function turn (row, col) {
+      if (typeof $scope.fieldModel[row][col] !== "undefined") {
+        if ($scope.currPlayer.shapeArr.length === 1){
+          $scope.fieldModel[row][col] = $scope.playerList[0].getMainShape(); //intentional error on playerList instead of currPlayer for next test
+          _changePlayer();
+        }
+      }
+    }
+
+    function _changePlayer () {
+      var currPlayerIdx = $scope.playerList.indexOf($scope.currPlayer);
+      if (currPlayerIdx === $scope.playerList.length) {
+        $scope.currPlayer = $scope.playerList[0];
+      } else {
+        $scope.currPlayer = $scope.playerList[currPlayerIdx + 1];
+      }
+    }
 
     function _createField () {
       var fieldModel = [];

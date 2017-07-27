@@ -5,13 +5,31 @@ describe('Controller: GameCtrl', function () {
   beforeEach(module('ticTacToeApp'));
 
   var GameCtrl,
-    scope;
+    scope,
+    playerListEmpty,
+    playerListOnlyOneShape,
+    playerListHasTwoShapes;
 
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
     GameCtrl = $controller('GameCtrl', {
       $scope: scope
     });
+    playerListEmpty = {
+      get: function () {
+        return { playerShapeArr: [] };
+      }
+    },
+    playerListOnlyOneShape = {
+      get: function () {
+        return { playerShapeArr: [["circle"], ["cross"]] };
+      }
+    },
+    playerListHasTwoShapes = {
+      get: function () {
+        return { playerShapeArr: [["circle", "wall"], ["cross", "bomb"]] };
+      }
+    }
   }));
 
   describe('(applying rules)', function () {
@@ -36,22 +54,12 @@ describe('Controller: GameCtrl', function () {
     });
 
     it('should create players according to rules', (inject(function ($controller) {
-      var playerRuleList0 = {
-        get: function () {
-          return { playerShapeArr: [] };
-        }
-      }
-      GameCtrl = $controller('GameCtrl', { $scope: scope, playerRuleList: playerRuleList0 });
+      GameCtrl = $controller('GameCtrl', { $scope: scope, playerRuleList: playerListEmpty });
       expect(scope.playerList).toBeArrayOfSize(0);
-      var playerRuleList1 = {
-        get: function () {
-          return { playerShapeArr: [["circle", "wall"], ["cross"]] };
-        }
-      }
-      GameCtrl = $controller('GameCtrl', { $scope: scope, playerRuleList: playerRuleList1 });
+      GameCtrl = $controller('GameCtrl', { $scope: scope, playerRuleList: playerListHasTwoShapes });
       expect(scope.playerList).toBeArrayOfSize(2);
       expect(scope.playerList[0].shapeArr).toBeArrayOfSize(2);
-      expect(scope.playerList[1].shapeArr).toBeArrayOfSize(1);
+      expect(scope.playerList[1].shapeArr).toBeArrayOfSize(2);
     })));
 
     it('should choose first player', function () {
@@ -61,6 +69,18 @@ describe('Controller: GameCtrl', function () {
 
     it('should be able to turn', function () {
       expect(scope.turn).toBeFunction();
+    });
+  });
+
+  describe('(game if only one shape)', function () {
+    beforeEach(inject(function ($controller) {
+      GameCtrl = $controller('GameCtrl', { $scope: scope, playerRuleList: playerListOnlyOneShape });
+    }));
+
+    it('should draw current player shape and change player', function () {
+      scope.turn(0,0);
+      expect(scope.fieldModel[0][0]).toBe(scope.playerList[0].getMainShape());
+      expect(scope.currPlayer).toBe(scope.playerList[1]);
     });
   });
 });

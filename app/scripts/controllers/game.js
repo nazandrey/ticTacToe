@@ -18,7 +18,7 @@ angular.module('ticTacToeApp')
     $scope.turn = turn;
 
     function turn (row, col) {
-      if (typeof $scope.fieldModel[row][col] !== "undefined") {
+      if ($scope.fieldModel[row][col] === "") {
         if ($scope.currPlayer.shapeArr.length === 1){
           $scope.fieldModel[row][col] = $scope.currPlayer.getMainShape();
           _changePlayer();

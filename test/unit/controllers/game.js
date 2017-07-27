@@ -89,5 +89,12 @@ describe('Controller: GameCtrl', function () {
       expect(scope.fieldModel[1][1]).toBe(scope.playerList[1].getMainShape());
       expect(scope.currPlayer).toBe(scope.playerList[0]);
     });
+
+    it('should not draw current player shape over another', function () {
+      scope.turn(0,0);
+      scope.turn(0,0);
+      expect(scope.fieldModel[0][0]).toBe(scope.playerList[0].getMainShape());
+      expect(scope.currPlayer).toBe(scope.playerList[1]);
+    });
   });
 });

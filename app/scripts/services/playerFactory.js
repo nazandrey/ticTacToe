@@ -8,26 +8,22 @@
  * Factory in the ticTacToeApp.
  */
 angular.module('ticTacToeApp')
-  .factory('playerFactory', function (playerRuleList) {
-    var playerCount = 0,
-      ruleList = playerRuleList.get(),
-      playerShapeArrList = ruleList.playerShapeArr;
+  .factory('playerFactory', function () {
+    function createPlayerList (playerShapeArrList) {
+      var playerCount = 0;
 
-    function createPlayer () {
-      var player = null;
-      if (playerShapeArrList && playerShapeArrList.length) {
-        var playerShapeArr = playerShapeArrList.shift();
+      return playerShapeArrList && playerShapeArrList.map ? playerShapeArrList.map(__createPlayer) : [];
 
-        player = {
+      function __createPlayer (shapeArr) {
+        return {
           name: "player" + (++playerCount),
-          shapeArr: playerShapeArr,
+          shapeArr: shapeArr,
           getMainShape: function () { return this.shapeArr[0]; }
-        }
+        };
       }
-      return player;
     }
 
     return {
-      createPlayer: createPlayer
+      createPlayerList: createPlayerList
     };
   });

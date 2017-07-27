@@ -4,38 +4,23 @@ describe('Service: playerFactory', function () {
 
   beforeEach(module('ticTacToeApp'));
 
-  beforeEach(module(function ($provide) {
-    $provide.factory('playerRuleList', function(){
-      function get () {
-        return {
-          playerShapeArr: ['circle', 'cross']
-        }
-      }
-
-      return {
-        get: get
-      };
-    });
-  }));
-
   var playerFactory;
   beforeEach(inject(function (_playerFactory_) {
     playerFactory = _playerFactory_;
   }));
 
-  it('should create player', function () {
-    expect(playerFactory.createPlayer).toBeFunction();
-    expect(playerFactory.createPlayer()).toBeObject();
-  });
+  it('should create player list according to shapeArr', function () {
+    expect(playerFactory.createPlayerList).toBeFunction();
+    var shapeArr = [["circle"]],
+      playerList = playerFactory.createPlayerList(shapeArr);
+    expect(playerList).toBeArrayOfSize(1);
+    expect(playerList[0].name).toBe("player1");
+    expect(playerList[0].shapeArr).toBe(shapeArr[0]);
+    expect(playerList[0].getMainShape).toBeFunction();
+    expect(playerList[0].getMainShape()).toBe(shapeArr[0][0]);
 
-  it('should create 2 players', function () {
-    playerFactory.createPlayer();
-    expect(playerFactory.createPlayer()).toBeObject();
-  });
-
-  it('should create 2 players but not more', function () {
-    playerFactory.createPlayer();
-    playerFactory.createPlayer();
-    expect(playerFactory.createPlayer()).toBeNull();
+    shapeArr = [["circle"], ["cross"]];
+    playerList = playerFactory.createPlayerList(shapeArr);
+    expect(playerList).toBeArrayOfSize(2);
   });
 });

@@ -19,10 +19,10 @@ describe('Service: simpleCheckVictory', function () {
 
   beforeEach(inject(function (_playerFactory_) {
     playerFactory = _playerFactory_;
-    simpleCheckVictory = simpleCheckVictory,
-    player1 = playerFactory.createPlayer(),
-    player2 = playerFactory.createPlayer(),
-    playerList = [player1, player2];
+    simpleCheckVictory = simpleCheckVictory;
+    playerList = playerFactory.createPlayerList([["circle"], ["cross"]]);
+    player1 = playerList[0];
+    player2 = playerList[1];
   }));
 
   beforeEach(function () {

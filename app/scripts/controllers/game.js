@@ -8,11 +8,12 @@
  * Controller of the ticTacToeApp
  */
 angular.module('ticTacToeApp')
-  .controller('GameCtrl', function ($scope, fieldRuleList, playerRuleList, checkVictoryStrategy) {
+  .controller('GameCtrl', function ($scope, fieldRuleList, playerRuleList, checkVictoryStrategy, playerFactory) {
     $scope.fieldRuleList = fieldRuleList.get();
     $scope.playerRuleList = playerRuleList.get();
     $scope.checkVictory = checkVictoryStrategy.getCurr();
     $scope.fieldModel = _createField();
+    $scope.playerList = playerFactory.createPlayerList($scope.playerRuleList.playerShapeArr);
 
     function _createField () {
       var fieldModel = [];

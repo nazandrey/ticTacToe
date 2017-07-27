@@ -55,7 +55,8 @@ describe('Controller: GameCtrl', function () {
     })));
 
     it('should choose first player', function () {
-
+      expect(scope.currPlayer).toBeObject();
+      expect(scope.currPlayer).toEqual(scope.playerList[0]);
     });
   });
 });

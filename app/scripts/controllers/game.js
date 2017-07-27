@@ -14,6 +14,7 @@ angular.module('ticTacToeApp')
     $scope.checkVictory = checkVictoryStrategy.getCurr();
     $scope.fieldModel = _createField();
     $scope.playerList = playerFactory.createPlayerList($scope.playerRuleList.playerShapeArr);
+    $scope.currPlayer = $scope.playerList[0];
 
     function _createField () {
       var fieldModel = [];

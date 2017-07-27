@@ -82,5 +82,12 @@ describe('Controller: GameCtrl', function () {
       expect(scope.fieldModel[0][0]).toBe(scope.playerList[0].getMainShape());
       expect(scope.currPlayer).toBe(scope.playerList[1]);
     });
+
+    it('should draw second player shape after first turn and change player', function () {
+      scope.turn(0,0);
+      scope.turn(1,1);
+      expect(scope.fieldModel[1][1]).toBe(scope.playerList[1].getMainShape());
+      expect(scope.currPlayer).toBe(scope.playerList[0]);
+    });
   });
 });

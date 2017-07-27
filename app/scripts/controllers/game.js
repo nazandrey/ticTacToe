@@ -20,7 +20,7 @@ angular.module('ticTacToeApp')
     function turn (row, col) {
       if (typeof $scope.fieldModel[row][col] !== "undefined") {
         if ($scope.currPlayer.shapeArr.length === 1){
-          $scope.fieldModel[row][col] = $scope.playerList[0].getMainShape(); //intentional error on playerList instead of currPlayer for next test
+          $scope.fieldModel[row][col] = $scope.currPlayer.getMainShape();
           _changePlayer();
         }
       }
@@ -28,7 +28,7 @@ angular.module('ticTacToeApp')
 
     function _changePlayer () {
       var currPlayerIdx = $scope.playerList.indexOf($scope.currPlayer);
-      if (currPlayerIdx === $scope.playerList.length) {
+      if (currPlayerIdx >= $scope.playerList.length - 1 || currPlayerIdx === -1) {
         $scope.currPlayer = $scope.playerList[0];
       } else {
         $scope.currPlayer = $scope.playerList[currPlayerIdx + 1];

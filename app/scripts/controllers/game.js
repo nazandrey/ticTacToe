@@ -16,13 +16,15 @@ angular.module('ticTacToeApp')
     $scope.playerList = playerFactory.createPlayerList($scope.playerRuleList.playerShapeArr);
     $scope.currPlayer = $scope.playerList[0];
     $scope.turn = turn;
+    $scope.winner = "";
 
     function turn (row, col) {
-      if ($scope.fieldModel[row][col] === "") {
+      if (!$scope.winner && $scope.fieldModel[row][col] === "") {
         if ($scope.currPlayer.shapeArr.length === 1){
           $scope.fieldModel[row][col] = $scope.currPlayer.getMainShape();
           _changePlayer();
         }
+        $scope.winner = $scope.checkVictory($scope.fieldModel, $scope.playerList);
       }
     }
 

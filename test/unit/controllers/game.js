@@ -73,8 +73,11 @@ describe('Controller: GameCtrl', function () {
   });
 
   describe('(game if only one shape)', function () {
-    beforeEach(inject(function ($controller) {
+    var simpleCheckVictory;
+
+    beforeEach(inject(function ($controller, _simpleCheckVictory_) {
       GameCtrl = $controller('GameCtrl', { $scope: scope, playerRuleList: playerListOnlyOneShape });
+      simpleCheckVictory = _simpleCheckVictory_;
     }));
 
     it('should draw current player shape and change player', function () {
@@ -96,5 +99,30 @@ describe('Controller: GameCtrl', function () {
       expect(scope.fieldModel[0][0]).toBe(scope.playerList[0].getMainShape());
       expect(scope.currPlayer).toBe(scope.playerList[1]);
     });
+
+    it('should check victory', inject(function (simpleCheckVictory) {
+      scope.checkVictory = simpleCheckVictory;
+      expect(scope.winner).toBe("");
+      spyOn(scope, "checkVictory").and.callThrough();
+      for (var row = 0; row < scope.fieldModel.length; row++) {
+        scope.turn(row,0); //1st player line
+        scope.turn(row,row % 2 + 1); //2nd player "line", just to change player and avoid 2nd player win
+      };
+      expect(scope.checkVictory).toHaveBeenCalledWith(scope.fieldModel, scope.playerList);
+      expect(scope.winner).toBe("player1");
+    }));
+
+    it('should stop checking victory if there is winner', inject(function (simpleCheckVictory) {
+      scope.checkVictory = simpleCheckVictory;
+      spyOn(scope, "checkVictory").and.callThrough();
+      spyOn(scope, "turn").and.callThrough();
+      var winnerRow;
+      for (var row = 0; row < scope.fieldModel.length; row++) {
+        scope.turn(row,0); //1st player line
+        scope.turn(row,1); //2nd player line, last one should be cancelled because we should have winner
+      };
+      expect(scope.winner).toBe("player1");
+      expect(scope.checkVictory.calls.count()).toBeLessThan(scope.turn.calls.count());
+    }));
   });
 });

@@ -63,10 +63,12 @@ module.exports = function(config) {
       "karma-chrome-launcher",
       "karma-jasmine",
       "karma-jasmine-matchers",
-      "karma-ng-html2js-preprocessor"
+      "karma-ng-html2js-preprocessor",
+      "karma-coverage"
     ],
 
     preprocessors: {
+      'app/scripts/**/*.js': 'coverage',
       'app/views/**/*.html': 'ng-html2js'
     },
 

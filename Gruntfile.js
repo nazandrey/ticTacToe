@@ -481,7 +481,8 @@ module.exports = function (grunt) {
 
       },
       once: {
-        singleRun: true
+        singleRun: true,
+        reporters: ['coverage']
       },
       debug: {
         browsers: [

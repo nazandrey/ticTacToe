@@ -58,7 +58,8 @@ describe('Service: simpleCheckVictory', function () {
       ['',oo,'','',''],
       ['',oo,'','',''],
       ['',oo,'','',''],
-      ['',oo,'','','']
+      ['',oo,'','',''],
+      ['','','','','']
     ];
     expect(simpleCheckVictory(fieldModelMock, playerList)).toBe("player1");
   });

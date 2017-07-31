@@ -15,19 +15,23 @@ angular.module('ticTacToeApp')
       var winner = "";
       playerList.forEach(function (player) {
         var mainShape = player.getMainShape(),
-          countInARow = 0;
+          countInARow = 0,
+          maxCountInARow = 0;
         iterator (fieldModel, __checkWinner, __checkShape);
 
         function __checkShape (cell) {
           if(cell === mainShape) {
             countInARow++;
           } else {
+            if (maxCountInARow < countInARow) {
+              maxCountInARow = countInARow;
+            }
             countInARow = 0;
           }
         }
 
         function __checkWinner() {
-          if(countInARow >= VICTORY_COUNT) {
+          if(maxCountInARow >= VICTORY_COUNT) {
             winner = player.name;
           }
         }

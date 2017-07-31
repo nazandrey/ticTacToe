@@ -11,7 +11,7 @@ module.exports = function (grunt) {
 
   // Load grunt tasks automatically
   //require('load-grunt-tasks')(grunt);
-  
+
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     protractor: 'grunt-protractor-runner'
@@ -31,7 +31,7 @@ module.exports = function (grunt) {
 
     // Project settings
     yeoman: appConfig,
-    
+
     open: {
       chrome:{
         url: 'http://localhost:<%= connect.options.port %>',
@@ -206,7 +206,7 @@ module.exports = function (grunt) {
           dest: '.tmp/styles/'
         }]
       }
-    },    
+    },
 
     // Automatically inject Bower components into the app
     wiredep: {
@@ -263,7 +263,7 @@ module.exports = function (grunt) {
           sourcemap: true
         }
       }
-    },   
+    },
 
     // Reads HTML for usemin blocks to enable smart builds that automatically
     // concat, minify and revision files. Creates configurations in memory so
@@ -284,7 +284,7 @@ module.exports = function (grunt) {
       }
     },
 
-    // Performs rewrites based on filerev and the useminPrepare configuration         
+    // Performs rewrites based on filerev and the useminPrepare configuration
     usemin: {
       html: ['<%= yeoman.cordova %>/{,*/}*.html'],
       css: ['<%= yeoman.cordova %>/styles/{,*/}*.css'],
@@ -322,7 +322,7 @@ module.exports = function (grunt) {
     // concat: {
     //   dist: {}
     // },
-    
+
     imagemin: {
       cordova: {
         files: [{
@@ -384,7 +384,7 @@ module.exports = function (grunt) {
     },
 
     // Copies remaining files to places other tasks can use
-    copy: {      
+    copy: {
       cordova: {
         files: [{
           expand: true,
@@ -434,7 +434,7 @@ module.exports = function (grunt) {
         'svgmin'
       ]
     },
-    
+
     //cordova
     cordovacli: {
       options: {
@@ -466,7 +466,7 @@ module.exports = function (grunt) {
         }
       }
     },
-  
+
     // Test settings
     //unit
     karma: {
@@ -478,18 +478,18 @@ module.exports = function (grunt) {
         singleRun: false
       },
       shell: {
-      
+
       },
       once: {
         singleRun: true
       },
-      debug: {        
+      debug: {
         browsers: [
           "Chrome"
         ]
-      }      
+      }
     },
-    
+
     //e2e
     protractor: {
       options: {
@@ -499,7 +499,7 @@ module.exports = function (grunt) {
       run: {
         options:{
           configFile: "test/e2e_fast.conf.js",
-        }        
+        }
       },
       debug: {
         options: {
@@ -507,52 +507,52 @@ module.exports = function (grunt) {
         }
       }
     },
-    
+
     webdriver: {
       options: {
         startCommand: "./node_modules/protractor/bin/webdriver-manager start"
       },
       start: {
-        
+
       },
     },
-    
-    
+
+
     protractor_webdriver: {
       options: {
         keepAlive: true
       },
       start: {
-        // Target-specific file lists and/or options go here. 
+        // Target-specific file lists and/or options go here.
       },
     },
-    
+
     shell: {
       options: {
-        
+
       },
       webdriver: {
         command: 'start "Selenium Server" grunt launchWebdriver',
         options: {
-        
-        }        
+
+        }
       },
       karma: {
-        command: 'start "Karma" grunt unitTest:shell'     
-      }      
+        command: 'start "Karma" grunt unitTest:shell'
+      }
     },
-    
+
     confirm: {
       launchWebdriver:{
         options: {
-          // Static text. 
+          // Static text.
           question: 'Do you want launch Selenium Server?',
           input: '_key:y'
         }
       },
       webdriver: {
         options: {
-          // Static text. 
+          // Static text.
           question: 'Check Selenium Server. Is it running?'
         }
       }
@@ -562,7 +562,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'cordova') {
-      return grunt.task.run(['build', 'connect:cordova:keepalive']);    
+      return grunt.task.run(['build', 'connect:cordova:keepalive']);
     }
 
     grunt.task.run([
@@ -581,7 +581,7 @@ module.exports = function (grunt) {
     grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
     grunt.task.run(['serve:' + target]);
   });
-    
+
   grunt.registerTask('unitTest', function(mode){
     var taskArr = [];
     if(mode !== 'shell'){
@@ -594,19 +594,19 @@ module.exports = function (grunt) {
     }
     taskArr.push('connect:test');
     taskArr.push('karma:' + (mode || 'once'));
-    
+
     grunt.task.run(taskArr);
   });
-  
+
   grunt.registerTask('launchWebdriver', [
     'protractor_webdriver:start',
     'keepalive'
   ]);
-  
+
   grunt.registerTask('webdriver', [
     'shell:webdriver'
-  ]);  
-  
+  ]);
+
   grunt.registerTask('e2eTest', function(mode){
     var webdriverTask;
     if(mode === 'silent'){
@@ -622,14 +622,14 @@ module.exports = function (grunt) {
       'postcss',
       'connect:test',
       'protractor:' + (mode && mode !== 'silent' || 'run')
-    ]);    
-  });    
-  
+    ]);
+  });
+
   grunt.registerTask('cordovaInit', [
     'cordovacli:init',
     'build'
   ]);
-  
+
   grunt.registerTask('build', [
     'clean:cordova',
     'wiredep',
@@ -647,7 +647,7 @@ module.exports = function (grunt) {
     'htmlmin',
     'cordovacli:build_android'
   ]);
-  
+
   grunt.registerTask('test', [
     'e2eTest:silent',
     'unitTest'

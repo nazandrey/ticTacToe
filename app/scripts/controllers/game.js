@@ -32,6 +32,7 @@ angular.module('ticTacToeApp')
     function restart () {
       $scope.currPlayer = $scope.playerList[0];
       $scope.fieldModel = _createField();
+      $scope.winner = "";
     }
 
     function _changePlayer () {

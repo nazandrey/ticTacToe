@@ -134,5 +134,16 @@ describe('Controller: GameCtrl', function () {
       expect(scope.winner).toBe("player1");
       expect(scope.checkVictory.calls.count()).toBeLessThan(scope.turn.calls.count());
     }));
+
+    it('should reset winner if restart', inject(function (simpleCheckVictory) {
+      scope.checkVictory = simpleCheckVictory;
+      var winnerRow;
+      for (var row = 0; row < scope.fieldModel.length; row++) {
+        scope.turn(row,0); //1st player line
+        scope.turn(row,1); //2nd player line
+      };
+      scope.restart();
+      expect(scope.winner).toBe("");
+    }));
   });
 });

@@ -72,6 +72,16 @@ describe('Controller: GameCtrl', function () {
     });
   });
 
+  describe('(game)', function () {
+    it('should restart game if needed', function () {
+      expect(scope.restart).toBeFunction();
+      scope.turn(0,0);
+      scope.restart();
+      expect(scope.currPlayer).toBe(scope.playerList[0]);
+      expect(scope.fieldModel[0]).not.toEqual(jasmine.arrayContaining(["circle"]));
+    });
+  });
+
   describe('(game if only one shape)', function () {
     var simpleCheckVictory;
 

@@ -16,6 +16,7 @@ angular.module('ticTacToeApp')
     $scope.playerList = playerFactory.createPlayerList($scope.playerRuleList.playerShapeArr);
     $scope.currPlayer = $scope.playerList[0];
     $scope.turn = turn;
+    $scope.restart = restart;
     $scope.winner = "";
 
     function turn (row, col) {
@@ -26,6 +27,11 @@ angular.module('ticTacToeApp')
         }
         $scope.winner = $scope.checkVictory($scope.fieldModel, $scope.playerList);
       }
+    }
+
+    function restart () {
+      $scope.currPlayer = $scope.playerList[0];
+      $scope.fieldModel = _createField();
     }
 
     function _changePlayer () {
